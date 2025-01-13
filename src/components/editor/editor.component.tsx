@@ -34,7 +34,7 @@ const Editor = ({ documentName }: EditorProps) => {
   const [askAiOpen, setAskAiOpen] = useState(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { messages, input, handleInputChange, append, reload } = useChat();
+  const { messages, input, handleInputChange, append } = useChat();
 
   const { refs, floatingStyles, context } = useFloating({
     placement: "bottom-end",
@@ -127,7 +127,7 @@ const Editor = ({ documentName }: EditorProps) => {
       baseUrl: "ws://localhost:3001",
       document: doc,
     });
-  }, [documentName]);
+  }, [doc, documentName]);
 
   const askAi = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -141,18 +141,17 @@ const Editor = ({ documentName }: EditorProps) => {
     append({
       role: "user",
       content: `
+        ===
         You are an AI helping on a text editor, this is the current content of the text editor:
         ${editor?.getText()}
-
-        The user highlighted this section of the editor to ask a question about it:
+        ===
+        This is the highlighted text from the user:
         ${selectedText}
-
+        ===
         The user added this question about the highlighted text:
         ${question}
       `,
     });
-
-    await reload({ allowEmptySubmit: true });
   };
 
   return (
