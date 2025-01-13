@@ -20,4 +20,15 @@ services:
       - 3001:3001
     command: |
       npm run dev:websocket-server
-  
+
+  minio:
+    container_name: minio
+    image: minio/minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: studyfetch123
+    command: |
+      server /data --console-address ":9001"

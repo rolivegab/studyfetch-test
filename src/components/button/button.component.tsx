@@ -1,14 +1,21 @@
-import { Button as MaterialButton } from "@mui/material";
+import LoadingButton, { LoadingButtonProps } from "@mui/lab/LoadingButton";
 import { ForwardedRef, forwardRef } from "react";
 import { buttonStyle } from "./button.style";
 
+type ButtonProps = Pick<
+  LoadingButtonProps,
+  "fullWidth" | "loading" | "type" | "children" | "size" | "onClick"
+> & {};
+
 export const Button = forwardRef(function BaseButton(
-  _props: unknown,
+  { fullWidth, loading, type, children, size, onClick }: ButtonProps,
   ref: ForwardedRef<HTMLButtonElement>
 ) {
   return (
-    <MaterialButton variant="contained" sx={buttonStyle} ref={ref}>
-      Next
-    </MaterialButton>
+    <LoadingButton
+      variant="contained"
+      sx={buttonStyle}
+      {...{ ref, fullWidth, loading, type, children, size, onClick }}
+    />
   );
 });

@@ -1,11 +1,14 @@
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 import { inputStyle } from "./input.style";
-import { forwardRef } from "react";
+import { ForwardedRef, forwardRef } from "react";
 
-interface InputProps {
-  label: string;
-}
+type InputProps = Pick<TextFieldProps, "label" | "type" | "name">;
 
-export const Input = forwardRef(function BaseInput({ label }: InputProps) {
-  return <TextField size="small" sx={inputStyle} label={label} />;
+export const Input = forwardRef(function BaseInput(
+  { label, type, name }: InputProps,
+  ref: ForwardedRef<HTMLInputElement>
+) {
+  return (
+    <TextField size="small" sx={inputStyle} {...{ label, type, ref, name }} />
+  );
 });
