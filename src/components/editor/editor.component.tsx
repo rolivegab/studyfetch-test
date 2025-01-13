@@ -161,7 +161,13 @@ const Editor = ({ documentName }: EditorProps) => {
       height="100%"
       display="flex"
       width="100%"
-      sx={{ ".ProseMirror": { height: "100%", padding: "3px" } }}
+      sx={{
+        ".ProseMirror": {
+          height: "100%",
+          padding: "3px",
+          minHeight: 200,
+        },
+      }}
     >
       <Grid2 container width="100%" spacing={2}>
         <Grid2 size="grow">
