@@ -1,0 +1,23 @@
+services:
+  studyfetch-next:
+    container_name: studyfetch-next
+    image: node:22
+    working_dir: /home/code
+    volumes:
+      - ./:/home/code
+    ports:
+      - 3000:3000
+    command: |
+      npm run dev:next
+
+  studyfetch-websocket-server:
+    container_name: studyfetch-websocket-server
+    image: node:22
+    working_dir: /home/code
+    volumes:
+      - ./:/home/code
+    ports:
+      - 3001:3001
+    command: |
+      npm run dev:websocket-server
+  
