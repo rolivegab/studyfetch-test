@@ -1,10 +1,5 @@
-import { Hocuspocus } from "@hocuspocus/server";
 import { Database } from "@hocuspocus/extension-database";
-import {
-  S3Client,
-  CreateBucketCommand,
-  ListBucketsCommand,
-} from "@aws-sdk/client-s3";
+import { Hocuspocus } from "@hocuspocus/server";
 
 import * as Minio from "minio";
 import { Readable } from "stream";
@@ -37,20 +32,23 @@ const server = new Hocuspocus({
   extensions: [
     new Database({
       async store(data) {
-        const response = await minioClient.putObject(
+        await minioClient.putObject(
           "studyfetch",
           data.documentName,
           data.state
         );
-        console.log("response", response);
       },
       async fetch(data) {
-        const response = await minioClient.getObject(
-          "studyfetch",
-          data.documentName
-        );
+        try {
+          const response = await minioClient.getObject(
+            "studyfetch",
+            data.documentName
+          );
 
-        return readableToUint8Array(response);
+          return readableToUint8Array(response);
+        } catch {
+          return null;
+        }
       },
     }),
   ],

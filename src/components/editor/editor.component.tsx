@@ -124,11 +124,11 @@ const Editor = ({ documentName }: EditorProps) => {
 
   useEffect(() => {
     new TiptapCollabProvider({
-      name: documentName,
-      baseUrl: "http://localhost:3001",
+      name: "document.name",
+      baseUrl: "ws://localhost:3001",
       document: doc,
     });
-  }, [documentName]);
+  }, []);
 
   const askAi = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
