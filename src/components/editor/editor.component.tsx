@@ -23,13 +23,12 @@ import * as Y from "yjs";
 import { Button } from "../button/button.component";
 import { useChat } from "ai/react";
 
-const doc = new Y.Doc(); // Initialize Y.Doc for shared editing
-
 interface EditorProps {
   documentName: string;
 }
 
 const Editor = ({ documentName }: EditorProps) => {
+  const [doc] = useState(new Y.Doc());
   const [isOpen, setIsOpen] = useState(false);
   const [selectedText, setSelectedText] = useState("");
   const [askAiOpen, setAskAiOpen] = useState(false);
